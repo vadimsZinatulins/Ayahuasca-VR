@@ -6,7 +6,7 @@ namespace DefaultNamespace
 {
     public class CutterBlade : MonoBehaviour
     {
-        private Vector3 lastPos;
+        public Vector3 lastPos;
         [SerializeField]
         private float lerpValue = 1f;
         public Vector3 boxSize;
