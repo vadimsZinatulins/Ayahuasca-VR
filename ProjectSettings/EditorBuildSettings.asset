@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Game.unity
+    guid: 35846aa721ef2864ebb9c932276195f1
+  - enabled: 0
     path: Assets/Samples/WebXR Interactions/0.15.0-preview/Sample Scene/Scenes/Desert.unity
     guid: 85380d4847db7b74a850284461349c36
   m_configObjects:
