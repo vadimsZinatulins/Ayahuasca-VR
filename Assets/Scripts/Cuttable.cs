@@ -1,4 +1,5 @@
 using System;
+using Tilia.Interactions.Interactables.Interactables;
 using UnityEngine;
 
 namespace DefaultNamespace
@@ -16,8 +17,7 @@ namespace DefaultNamespace
             MeshFilter collider = GetComponent<MeshFilter>();
             if (collider)
             {
-                cutVolume = FunctionLibrary.VolumeOfMesh(collider.sharedMesh);
-                cutPercentage = 1;
+                cutVolume = N_FunctionLibrary.VolumeOfMesh(collider.sharedMesh);
             }
             else
             {
@@ -60,6 +60,15 @@ namespace DefaultNamespace
         public bool GetCanBeCutted()
         {
             return canBeCutted;
+        }
+
+        public void OnDestroy()
+        {
+            InteractableFacade facade = transform.GetComponentInParent<InteractableFacade>();
+            if (facade != null)
+            {
+                Destroy(facade.gameObject);
+            }
         }
     }
 }
