@@ -6,12 +6,12 @@ namespace MyUtility.Database
     public class MainDataAsset : ScriptableObject
     {
         // References to the assets
-        [SerializeField] private GameObject emptyInteractor;
+        //[SerializeField] private GameObject emptyInteractor;
 
         // Getters to the assets
-        public GameObject GetEmptyInteractorPrefab()
-        {
-            return emptyInteractor;
-        }
+        //public GameObject GetEmptyInteractorPrefab()
+        //{
+        //    return emptyInteractor;
+        //}
     }
 }

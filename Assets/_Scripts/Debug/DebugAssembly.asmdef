@@ -1,9 +1,8 @@
 {
-    "name": "WebXRDef",
+    "name": "DebugAssembly",
     "rootNamespace": "",
     "references": [
-        "GUID:23756adb8cb36e64587322ad0ecdf5e3",
-        "GUID:fd4abe4ffe74ef1448afe15c6cb36bb7"
+        "GUID:6055be8ebefd69e48b49212b09b47b2f"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

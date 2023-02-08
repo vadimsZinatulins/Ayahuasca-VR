@@ -1,5 +1,4 @@
 using System;
-using Tilia.Interactions.Interactables.Interactables;
 using UnityEngine;
 
 namespace DefaultNamespace
@@ -64,11 +63,7 @@ namespace DefaultNamespace
 
         public void OnDestroy()
         {
-            InteractableFacade facade = transform.GetComponentInParent<InteractableFacade>();
-            if (facade != null)
-            {
-                Destroy(facade.gameObject);
-            }
+            
         }
     }
 }

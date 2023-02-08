@@ -4,9 +4,7 @@ using System.Collections.Generic;
 using DefaultNamespace;
 using EzySlice;
 using MyUtility.Database;
-using Tilia.Interactions.Interactables.Interactables;
 using UnityEngine;
-using Zinnia.Extension;
 
 //using Plane = UnityEngine.Plane;
 
@@ -42,85 +40,88 @@ public class Cutter : MonoBehaviour
             if (DataAsset != null)
             {
                 var cuttables = cutterBlade.GetCuttables();
-            foreach (var c in cuttables)
-            {
-                if (c.GetCanBeCutted() && cutForceMinimum <= rb.velocity.magnitude)
+                foreach (var c in cuttables)
                 {
-                    MeshFilter mesh = c.GetComponent<MeshFilter>();
-                if (mesh && c)
-                {
-                    // Size of this piece
-                    float volumeCuttable = N_FunctionLibrary.VolumeOfMesh(mesh.mesh);
-                    
-                    EzySlice.Plane cuttingPlane = new EzySlice.Plane();
-                    
-                    cuttingPlane.Compute(cutterBlade.lastPos, cutterBlade.transform.up);
-                    
-                    //SlicedHull Slicer = c.gameObject.Slice(cuttingPlane,c.GetLowerMaterial());
-                    SlicedHull Slicer = c.gameObject.Slice(cutterBlade.lastPos, cutterBlade.transform.up);
-                    if (Slicer != null)
+                    if (c.GetCanBeCutted() && cutForceMinimum <= rb.velocity.magnitude)
                     {
-                        //--------------------------------UPPER--------------------------------------
-                        // This is gonna get deleted after because its only doing the logic of cutting
-                        GameObject upperHull = Slicer.CreateUpperHull(c.gameObject, c.GetUpperMaterial());
-                        MeshRenderer upperRenderer = upperHull.GetComponent<MeshRenderer>();
-                        MeshCollider upperCollider = upperHull.AddComponent<MeshCollider>();
-                        
-                        if (DataAsset.GetEmptyInteractorPrefab() != null)
+                        MeshFilter mesh = c.GetComponent<MeshFilter>();
+                        if (mesh && c)
                         {
-                            InteractableFacade upperFacade = Instantiate(DataAsset.GetEmptyInteractorPrefab(), upperHull.transform.position, upperHull.transform.rotation).GetComponent<InteractableFacade>();
-                            InteractableMeshConfigurator upperMeshConfigurator = upperFacade.MeshContainer.GetComponentInChildren<InteractableMeshConfigurator>();
-                            upperFacade.transform.SetGlobalScale(c.transform.lossyScale);
-                            upperFacade.transform.position = c.transform.position;
-                            if (upperMeshConfigurator != null)
+                            // Size of this piece
+                            float volumeCuttable = N_FunctionLibrary.VolumeOfMesh(mesh.mesh);
+                            
+                            EzySlice.Plane cuttingPlane = new EzySlice.Plane();
+                            
+                            cuttingPlane.Compute(cutterBlade.lastPos, cutterBlade.transform.up);
+                            
+                            //SlicedHull Slicer = c.gameObject.Slice(cuttingPlane,c.GetLowerMaterial());
+                            SlicedHull Slicer = c.gameObject.Slice(cutterBlade.lastPos, cutterBlade.transform.up);
+                            if (Slicer != null)
                             {
-                                upperMeshConfigurator.Setup(upperCollider.sharedMesh, upperRenderer.materials);
+                                //--------------------------------UPPER--------------------------------------
+                                GameObject upperHull = Slicer.CreateUpperHull(c.gameObject, c.GetUpperMaterial());
+                                upperHull.tag = "Interactable";
+                                //MeshRenderer upperRenderer = upperHull.GetComponent<MeshRenderer>();
+                                MeshCollider upperCollider = upperHull.AddComponent<MeshCollider>();
+                                upperCollider.convex = true;
+                                upperHull.AddComponent<Rigidbody>();
                                 
                                 float upperVolume = N_FunctionLibrary.VolumeOfMesh(upperCollider.sharedMesh);
-                                Cuttable upperCut = upperMeshConfigurator.gameObject.AddComponent<Cuttable>();
+                                Cuttable upperCut = upperHull.AddComponent<Cuttable>();
                                 upperCut.SetVolumePercentage(upperVolume,(upperVolume/volumeCuttable)*c.GetPercentage());
-                            }
-                        }
-                        
-                        Destroy(upperHull);
-                        //--------------------------------UPPER--------------------------------------
-                        
-                        //---------------------------------LOWER-------------------------------------
-                        GameObject bottomHull = Slicer.CreateLowerHull(c.gameObject, c.GetLowerMaterial());
-                        MeshRenderer bottomRenderer = bottomHull.GetComponent<MeshRenderer>();
-                        MeshCollider bottomCollider = bottomHull.AddComponent<MeshCollider>();
-                        
-                        if (DataAsset.GetEmptyInteractorPrefab() != null)
-                        {
-                            InteractableFacade bottomFacade = Instantiate(DataAsset.GetEmptyInteractorPrefab(), bottomHull.transform.position, bottomHull.transform.rotation).GetComponent<InteractableFacade>();
-                            InteractableMeshConfigurator bottomMeshConfigurator = bottomFacade.MeshContainer.GetComponentInChildren<InteractableMeshConfigurator>();
-                            bottomFacade.transform.SetGlobalScale(c.transform.lossyScale);
-                            bottomFacade.transform.position = c.transform.position;
-                            if (bottomMeshConfigurator != null)
-                            {
-                                bottomMeshConfigurator.Setup(bottomCollider.sharedMesh, bottomRenderer.materials);
+                                
+                                //InteractableFacade upperFacade = Instantiate(DataAsset.GetEmptyInteractorPrefab(), upperHull.transform.position, upperHull.transform.rotation).GetComponent<InteractableFacade>();
+                                //InteractableMeshConfigurator upperMeshConfigurator = upperFacade.MeshContainer.GetComponentInChildren<InteractableMeshConfigurator>();
+                                //upperFacade.transform.SetGlobalScale(c.transform.lossyScale);
+                                //upperFacade.transform.position = c.transform.position;
+                                //if (upperMeshConfigurator != null)
+                                //{
+                                //    upperMeshConfigurator.Setup(upperCollider.sharedMesh, upperRenderer.materials);
+                                //    
+                                //    float upperVolume = N_FunctionLibrary.VolumeOfMesh(upperCollider.sharedMesh);
+                                //    Cuttable upperCut = upperHull.gameObject.AddComponent<Cuttable>();
+                                //    upperCut.SetVolumePercentage(upperVolume,(upperVolume/volumeCuttable)*c.GetPercentage());
+                                //}
+                                //--------------------------------UPPER--------------------------------------
+                                
+                                //---------------------------------LOWER-------------------------------------
+                                GameObject bottomHull = Slicer.CreateLowerHull(c.gameObject, c.GetLowerMaterial());
+                                bottomHull.tag = "Interactable";
+                                //MeshRenderer bottomRenderer = bottomHull.GetComponent<MeshRenderer>();
+                                MeshCollider bottomCollider = bottomHull.AddComponent<MeshCollider>();
+                                bottomCollider.convex = true;
+                                bottomHull.AddComponent<Rigidbody>();
                                 
                                 float bottomVolume = N_FunctionLibrary.VolumeOfMesh(bottomCollider.sharedMesh);
-                                Cuttable bottomCut = bottomMeshConfigurator.gameObject.AddComponent<Cuttable>();
+                                Cuttable bottomCut = bottomHull.AddComponent<Cuttable>();
                                 bottomCut.SetVolumePercentage(bottomVolume,(bottomVolume/volumeCuttable)*c.GetPercentage());
+                                
+                                //InteractableFacade bottomFacade = Instantiate(DataAsset.GetEmptyInteractorPrefab(), bottomHull.transform.position, bottomHull.transform.rotation).GetComponent<InteractableFacade>();
+                                //InteractableMeshConfigurator bottomMeshConfigurator = bottomFacade.MeshContainer.GetComponentInChildren<InteractableMeshConfigurator>();
+                                //bottomFacade.transform.SetGlobalScale(c.transform.lossyScale);
+                                //bottomFacade.transform.position = c.transform.position;
+                                //if (bottomMeshConfigurator != null)
+                                //{
+                                //    bottomMeshConfigurator.Setup(bottomCollider.sharedMesh, bottomRenderer.materials);
+                                //    
+                                //    float bottomVolume = N_FunctionLibrary.VolumeOfMesh(bottomCollider.sharedMesh);
+                                //    Cuttable bottomCut = bottomMeshConfigurator.gameObject.AddComponent<Cuttable>();
+                                //    bottomCut.SetVolumePercentage(bottomVolume,(bottomVolume/volumeCuttable)*c.GetPercentage());
+                                //}
+
+                                Debug.Log($"Cutted object: {c.name}");
+                                //---------------------------------LOWER-------------------------------------
+                                Destroy(c.gameObject);
+                                
+
                             }
                         }
-                        
-                        Destroy(bottomHull);
-                        
-                        Debug.Log($"Cutted object: {c.name}");
-                        //---------------------------------LOWER-------------------------------------
-                        Destroy(c.gameObject);
-                        
-
+                        else
+                        {
+                            Debug.LogError("Didn't find mesh renderer on cutter",this);
+                        }
                     }
                 }
-                else
-                {
-                    Debug.LogError("Didn't find mesh renderer on cutter",this);
-                }
-                }
-            }
             }
         }
         

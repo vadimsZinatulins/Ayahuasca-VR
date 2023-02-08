@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DefaultNamespace;
-using Tilia.Interactions.Interactables.Interactables;
 using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -51,10 +50,7 @@ public class Boiler : MonoBehaviour
         else
         {
             Debug.LogWarning("Ingredient not of type coockable");
-            if (other.TryGetComponent<InteractableFacade>(out InteractableFacade facade))
-            {
-                other.transform.position = spawnLocation.position;
-            }
+            other.transform.position = spawnLocation.position;
         }
     }
 
