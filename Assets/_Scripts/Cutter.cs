@@ -11,7 +11,8 @@ using UnityEngine;
 public class Cutter : MonoBehaviour
 {
     [SerializeField] private CutterBlade cutterBlade;
-    [SerializeField]private Rigidbody rb;
+
+    [SerializeField] private BS_Grabbable _grabbable;
     //public Plane m_Plane;
     //private RaycastHit hit;
     [SerializeField] private float cutForceMinimum;
@@ -22,17 +23,17 @@ public class Cutter : MonoBehaviour
 
     private void Start()
     {
-        if (TextDebugger.Instance != null && rb != null)
+        if (TextDebugger.Instance != null && _grabbable != null)
         {
             TextDebugger.Instance.AddScreenDebug("Cutter setted up",0);
-            debugId = TextDebugger.Instance.AddScreenDebug($"Cuttables near: {cutterBlade.GetCuttables().Count} \n rb velocity: {rb.velocity.magnitude}", 1, true);
+            debugId = TextDebugger.Instance.AddScreenDebug($"Cuttables near: {cutterBlade.GetCuttables().Count} \n rb velocity: {_grabbable.rbSimulatedVelocity}", 1, true);
         }
     }
 
     // Start is called before the first frame update
     void FixedUpdate()
     {
-        TextDebugger.Instance.UpdateDebugText(debugId,$"Cuttables near: {cutterBlade.GetCuttables().Count} \n rb velocity: {rb.velocity.magnitude}");
+        TextDebugger.Instance.UpdateDebugText(debugId,$"Cuttables near: {cutterBlade.GetCuttables().Count} \n rb velocity: {_grabbable.rbSimulatedVelocity}");
         
         if (isEquipped)
         {
@@ -42,7 +43,7 @@ public class Cutter : MonoBehaviour
                 var cuttables = cutterBlade.GetCuttables();
                 foreach (var c in cuttables)
                 {
-                    if (c.GetCanBeCutted() && cutForceMinimum <= rb.velocity.magnitude)
+                    if (c.GetCanBeCutted() && cutForceMinimum <= _grabbable.rbSimulatedVelocity)
                     {
                         MeshFilter mesh = c.GetComponent<MeshFilter>();
                         if (mesh && c)
@@ -68,7 +69,7 @@ public class Cutter : MonoBehaviour
                                 
                                 float upperVolume = N_FunctionLibrary.VolumeOfMesh(upperCollider.sharedMesh);
                                 Cuttable upperCut = upperHull.AddComponent<Cuttable>();
-                                upperCut.SetVolumePercentage(upperVolume,(upperVolume/volumeCuttable)*c.GetPercentage());
+                                upperCut.SetVolumePercentage(upperVolume,(upperVolume/volumeCuttable)*c.GetCutPercentage(),c.GetMaxCutPercentage());
                                 
                                 //InteractableFacade upperFacade = Instantiate(DataAsset.GetEmptyInteractorPrefab(), upperHull.transform.position, upperHull.transform.rotation).GetComponent<InteractableFacade>();
                                 //InteractableMeshConfigurator upperMeshConfigurator = upperFacade.MeshContainer.GetComponentInChildren<InteractableMeshConfigurator>();
@@ -94,7 +95,7 @@ public class Cutter : MonoBehaviour
                                 
                                 float bottomVolume = N_FunctionLibrary.VolumeOfMesh(bottomCollider.sharedMesh);
                                 Cuttable bottomCut = bottomHull.AddComponent<Cuttable>();
-                                bottomCut.SetVolumePercentage(bottomVolume,(bottomVolume/volumeCuttable)*c.GetPercentage());
+                                bottomCut.SetVolumePercentage(bottomVolume,(bottomVolume/volumeCuttable)*c.GetCutPercentage(),c.GetMaxCutPercentage());
                                 
                                 //InteractableFacade bottomFacade = Instantiate(DataAsset.GetEmptyInteractorPrefab(), bottomHull.transform.position, bottomHull.transform.rotation).GetComponent<InteractableFacade>();
                                 //InteractableMeshConfigurator bottomMeshConfigurator = bottomFacade.MeshContainer.GetComponentInChildren<InteractableMeshConfigurator>();

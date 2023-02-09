@@ -698,6 +698,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cutPercentage: 1
+  MaxCutPercentage: 0.5
   canBeCutted: 1
   upperMaterial: {fileID: 2100000, guid: f6cf4adf6bf5e544ea94e43fef522e31, type: 2}
   lowerMaterial: {fileID: 2100000, guid: f6cf4adf6bf5e544ea94e43fef522e31, type: 2}
@@ -721,4 +722,6 @@ MonoBehaviour:
   OnReleased:
     m_PersistentCalls:
       m_Calls: []
+  positionLerpSpeed: 3
+  SpeedMultiplier: 20
   rbSimulatedVelocity: 0

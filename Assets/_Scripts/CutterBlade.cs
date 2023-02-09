@@ -41,7 +41,8 @@ namespace DefaultNamespace
         {
             List<Cuttable> cuttables = new List<Cuttable>();
             
-            Collider[] colliders = Physics.OverlapBox(lastPos, boxSize, transform.rotation);
+            //Collider[] colliders = Physics.OverlapBox(lastPos, boxSize, transform.rotation);
+            Collider[] colliders = Physics.OverlapBox(transform.position, boxSize, transform.rotation);
             foreach (var collider in colliders)
             {
                 if (collider.TryGetComponent<Cuttable>(out Cuttable c))

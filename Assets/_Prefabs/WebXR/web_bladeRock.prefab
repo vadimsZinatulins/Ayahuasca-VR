@@ -159,6 +159,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  positionLerpSpeed: 20
+  SpeedMultiplier: 100
   rbSimulatedVelocity: 0
 --- !u!1 &6426937637094501593
 GameObject:
@@ -206,7 +208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cutterBlade: {fileID: 9133600043596562964}
-  rb: {fileID: 642283822501088934}
+  _grabbable: {fileID: 8576415241551289626}
   cutForceMinimum: 0.5
   isEquipped: 0
 --- !u!1 &9133600043596563050

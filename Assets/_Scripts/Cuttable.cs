@@ -7,6 +7,7 @@ namespace DefaultNamespace
     {
         public float cutPercentage = 1;
         private float cutVolume;
+        [SerializeField] private float MaxCutPercentage = 0.2f;
         [SerializeField] private bool canBeCutted;
         [SerializeField] private Material upperMaterial;
         [SerializeField] private Material lowerMaterial;
@@ -34,14 +35,20 @@ namespace DefaultNamespace
             return lowerMaterial;
         }
 
-        public float GetPercentage()
+        public float GetCutPercentage()
         {
             return cutPercentage;
         }
         
-        public void SetVolumePercentage(float InVolume, float InPercentage)
+        public float GetMaxCutPercentage()
         {
-            SetCanBeCutted(InPercentage >= 0.10f);
+            return MaxCutPercentage;
+        }
+        
+        public void SetVolumePercentage(float InVolume, float InPercentage, float InMaxCutPercentage)
+        {
+            MaxCutPercentage = InMaxCutPercentage;
+            SetCanBeCutted(InPercentage >= MaxCutPercentage);
             cutVolume = InVolume;
             cutPercentage = InPercentage;
         }

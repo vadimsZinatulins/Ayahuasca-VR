@@ -9,8 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81b686a1ae5c4cc5bbdcb07699cb6bad, type: 3}
-  m_Name: MainDataAsset
+  m_Script: {fileID: 11500000, guid: 4dd58821bd0b40d1bca213f786ee4880, type: 3}
+  m_Name: TestRecipe
   m_EditorClassIdentifier: 
-  recipesList:
-  - {fileID: 11400000, guid: 7a2bc874d6f0c394eb377abcef857e50, type: 2}
+  ingredients:
+  - type: 0
+    amountPercentage: 0.1
+  objectsProduced:
+  - {fileID: 724331991892203928, guid: 46352bdb5f5eb0c46b76578fdce58a90, type: 3}
