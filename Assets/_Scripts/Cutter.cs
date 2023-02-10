@@ -33,8 +33,11 @@ public class Cutter : MonoBehaviour
     // Start is called before the first frame update
     void FixedUpdate()
     {
-        TextDebugger.Instance.UpdateDebugText(debugId,$"Cuttables near: {cutterBlade.GetCuttables().Count} \n rb velocity: {_grabbable.rbSimulatedVelocity}");
-        
+        if (TextDebugger.Instance != null)
+        {
+            TextDebugger.Instance.UpdateDebugText(debugId,$"Cuttables near: {cutterBlade.GetCuttables().Count} \n rb velocity: {_grabbable.rbSimulatedVelocity}");
+        }
+
         if (isEquipped)
         {
             MainDataAsset DataAsset = N_FunctionLibrary.GetMainDataAsset();
@@ -46,7 +49,10 @@ public class Cutter : MonoBehaviour
                     if (c.GetCanBeCutted() && cutForceMinimum <= _grabbable.rbSimulatedVelocity)
                     {
                         MeshFilter mesh = c.GetComponent<MeshFilter>();
-                        if (mesh && c)
+                        Coockable coockable = c.GetComponent<Coockable>();
+                        if (mesh && 
+                            c    && 
+                            coockable)
                         {
                             // Size of this piece
                             float volumeCuttable = N_FunctionLibrary.VolumeOfMesh(mesh.mesh);
@@ -68,7 +74,9 @@ public class Cutter : MonoBehaviour
                                 upperHull.AddComponent<Rigidbody>();
                                 
                                 float upperVolume = N_FunctionLibrary.VolumeOfMesh(upperCollider.sharedMesh);
-                                Cuttable upperCut = upperHull.AddComponent<Cuttable>();
+                                Coockable upperCut = upperHull.AddComponent<Coockable>();
+                                upperCut.SetCookColor(coockable.GetCookColor());
+                                upperCut.SetIngredientType(coockable.GetIngredientType());
                                 upperCut.SetVolumePercentage(upperVolume,(upperVolume/volumeCuttable)*c.GetCutPercentage(),c.GetMaxCutPercentage());
                                 
                                 //InteractableFacade upperFacade = Instantiate(DataAsset.GetEmptyInteractorPrefab(), upperHull.transform.position, upperHull.transform.rotation).GetComponent<InteractableFacade>();
@@ -94,7 +102,9 @@ public class Cutter : MonoBehaviour
                                 bottomHull.AddComponent<Rigidbody>();
                                 
                                 float bottomVolume = N_FunctionLibrary.VolumeOfMesh(bottomCollider.sharedMesh);
-                                Cuttable bottomCut = bottomHull.AddComponent<Cuttable>();
+                                Coockable bottomCut = bottomHull.AddComponent<Coockable>();
+                                bottomCut.SetCookColor(coockable.GetCookColor());
+                                bottomCut.SetIngredientType(coockable.GetIngredientType());
                                 bottomCut.SetVolumePercentage(bottomVolume,(bottomVolume/volumeCuttable)*c.GetCutPercentage(),c.GetMaxCutPercentage());
                                 
                                 //InteractableFacade bottomFacade = Instantiate(DataAsset.GetEmptyInteractorPrefab(), bottomHull.transform.position, bottomHull.transform.rotation).GetComponent<InteractableFacade>();

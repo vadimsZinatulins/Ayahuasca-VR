@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ingredients:
   - type: 0
-    amountPercentage: 0.1
+    amountPercentage: 1
   objectsProduced:
-  - {fileID: 724331991892203928, guid: 46352bdb5f5eb0c46b76578fdce58a90, type: 3}
+  - {fileID: 3434888979676691859, guid: 82031e605e1385546aea4a278dc28213, type: 3}

@@ -12,18 +12,35 @@ public class Boiler : MonoBehaviour
 {
     [Header("Location")]
     [SerializeField] private Transform spawnLocation;
+    [Space(20)]
     
     [Header("Water")]
     [SerializeField] private MeshRenderer waterRenderer;
     [SerializeField] private Color defaultColor;
+    [Header("Water - Bubbles")]
     [SerializeField] private ParticleSystem waterBoilingPS;
+    [SerializeField] private int normalBubblesEmissionRate = 5;
+    [SerializeField] private int maxBubblesEmissionRate = 10;
+    [SerializeField] private float maxBubblesSpeed = 3f;
+    [SerializeField] private float minBubblesLifeTime = 1f;
+    [SerializeField] private float normalBubblesLifeTime = 1f;
+    
+    [Header("Water - Smoke")]
+    [SerializeField] private ParticleSystem smokePS;
+    [SerializeField] private int normalSmokeEmissionRate = 6;
+    [SerializeField] private int maxSmokeEmissionRate = 12;
+    [SerializeField] private float maxSmokeSpeed = 3f;
+    [SerializeField] private float minSmokeLifeTime = 1f;
+    [SerializeField] private float normalSmokeLifeTime = 1f;
     [SerializeField] private List<AudioClip> waterSplashVFX = new List<AudioClip>();
     private Renderer waterBoilingPSRenderer;
+    [Space(20)]
 
     [Header("UI")] 
     [SerializeField] private Transform canvasTransform;
     [SerializeField] private TextMeshProUGUI ingredientsText;
     [SerializeField] private Slider progressBar;
+    [Space(20)]
     
     [Header("Cooking")]
     [SerializeField] private float CookingTime = 5f;
@@ -38,8 +55,9 @@ public class Boiler : MonoBehaviour
         {
             waterBoilingPSRenderer = waterBoilingPS.GetComponent<Renderer>();
         }
+        
         waterRenderer.material.color = defaultColor;
-        waterBoilingPS.GetComponent<Renderer>().material.SetColor("_Color", defaultColor);
+        waterBoilingPSRenderer.material.SetColor("_Color", defaultColor);
         
         progressBar.gameObject.SetActive(false);
     }
@@ -49,12 +67,35 @@ public class Boiler : MonoBehaviour
         if (recipeExists)
         {
             currentCookingTimer += Time.deltaTime;
-            progressBar.value = currentCookingTimer / CookingTime;
+            var ratio = currentCookingTimer / CookingTime;
+            progressBar.value = ratio;
+            
+            var bubblesEmissionModule = waterBoilingPS.emission;
+            bubblesEmissionModule.rateOverTime = new ParticleSystem.MinMaxCurve(Mathf.Lerp(normalBubblesEmissionRate, maxBubblesEmissionRate, ratio));
+            var bubblesMainmodule = smokePS.main;
+            bubblesMainmodule.simulationSpeed = 1 + (ratio* (maxBubblesSpeed));
+            bubblesMainmodule.startLifetime = Mathf.Lerp(normalBubblesLifeTime,minBubblesLifeTime,ratio);
+            
+            var smokeEmissionModule = smokePS.emission;
+            smokeEmissionModule.rateOverTime = new ParticleSystem.MinMaxCurve(Mathf.Lerp(normalSmokeEmissionRate, maxSmokeEmissionRate, ratio));
+            var smokeMainmodule = smokePS.main;
+            smokeMainmodule.simulationSpeed = 1 + (ratio* (maxSmokeSpeed -1));
+            smokeMainmodule.startLifetime = Mathf.Lerp(normalSmokeLifeTime,minSmokeLifeTime,ratio);
+            
             if (currentCookingTimer >= CookingTime)
             {
                 Cook();
                 currentCookingTimer = 0;
+                
+                bubblesEmissionModule.rateOverTime = new ParticleSystem.MinMaxCurve(normalBubblesEmissionRate);
+                bubblesMainmodule.simulationSpeed = 1;
+                bubblesMainmodule.startLifetime = normalBubblesLifeTime;
+                
+                smokeEmissionModule.rateOverTime = new ParticleSystem.MinMaxCurve(normalSmokeEmissionRate);
+                smokeMainmodule.simulationSpeed = 1;
+                smokeMainmodule.startLifetime = normalSmokeLifeTime;
             }
+
         }
     }
 
@@ -112,7 +153,7 @@ public class Boiler : MonoBehaviour
 
     private void UpdateBoiler()
     {
-        Color color = Color.white;
+        Color color = defaultColor;
         string currentIngredientsText = "<b>Ingredients</b> \n";
         float totalPercentage = 0.1f;
 
@@ -124,7 +165,10 @@ public class Boiler : MonoBehaviour
         }
 
         waterRenderer.material.color = new Color(color.r,color.g, color.b, waterRenderer.material.color.a);
-        waterBoilingPSRenderer.material.SetColor("_Color",color);
+        waterBoilingPSRenderer.material.SetColor("_Color", color);
+        
+        var smokePSMain = smokePS.main;
+        smokePSMain.startColor = new ParticleSystem.MinMaxGradient(color);
         ingredientsText.text = currentIngredientsText;
 
         if (CheckForRecipe())
@@ -173,8 +217,9 @@ public class Boiler : MonoBehaviour
         progressBar.gameObject.SetActive(false);
         progressBar.value = 0;
         CurrentIngredients = new Dictionary<IngredientType, BoilerIngredient>();
-        waterRenderer.material.color = defaultColor;
-        waterBoilingPSRenderer.material.SetColor("_Color", defaultColor);
+        UpdateBoiler();
+        //waterRenderer.material.color = defaultColor;
+        //waterBoilingPSRenderer.material.SetColor("_Color", defaultColor);
     }
 }
 

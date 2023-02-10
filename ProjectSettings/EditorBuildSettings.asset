@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/_Scenes/WebXrOnly.unity
+    guid: 02234ae56752553449862a5904b531e5
+  - enabled: 0
     path: Assets/_Scenes/Game.unity
     guid: 35846aa721ef2864ebb9c932276195f1
   - enabled: 0
@@ -15,3 +18,4 @@ EditorBuildSettings:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 5bf17be20183cc84ebf64add1ad7c075, type: 2}
     WebXR.Settings: {fileID: 11400000, guid: 1764446eb92feca4c92173947851534d, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 2ee6b560b428d9f4493eb38f8b5cd61b, type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 679c723d950cfcf4db94b516036b1981, type: 2}
