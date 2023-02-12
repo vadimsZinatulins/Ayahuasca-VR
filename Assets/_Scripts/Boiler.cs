@@ -60,6 +60,8 @@ public class Boiler : MonoBehaviour
         waterBoilingPSRenderer.material.SetColor("_Color", defaultColor);
         
         progressBar.gameObject.SetActive(false);
+
+        UpdateBoiler();
     }
 
     private void Update()

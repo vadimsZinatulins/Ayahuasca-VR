@@ -17,3 +17,4 @@ MonoBehaviour:
     amountPercentage: 1
   objectsProduced:
   - {fileID: 3434888979676691859, guid: 82031e605e1385546aea4a278dc28213, type: 3}
+  - {fileID: 3276725363984777812, guid: 784acd1899bc9854cbf269c8e137cb4e, type: 3}
