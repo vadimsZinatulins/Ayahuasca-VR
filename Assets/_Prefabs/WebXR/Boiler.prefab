@@ -5195,7 +5195,7 @@ Transform:
   m_GameObject: {fileID: 3559900068105549461}
   m_LocalRotation: {x: 0, y: -0.7189456, z: 0, w: 0.6950664}
   m_LocalPosition: {x: -1.335, y: 0.934, z: 0.187}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.6563305, y: 1.6563299, z: 1.6563305}
   m_Children:
   - {fileID: 3559900068878049279}
   - {fileID: 3559900068756626432}
@@ -11288,7 +11288,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 4645
+  m_VersionIndex: 4663
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -11422,7 +11422,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3559900068756626463}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.067, z: -0.219}
+  m_LocalPosition: {x: -0.044, y: -0.067, z: -0.215}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3559900068105549467}
@@ -12065,7 +12065,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 4726
+  m_VersionIndex: 4744
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -12163,9 +12163,9 @@ MonoBehaviour:
   waterBoilingPS: {fileID: 1658404451}
   normalBubblesEmissionRate: 6
   maxBubblesEmissionRate: 24
-  maxBubblesSpeed: 4
-  minBubblesLifeTime: 2
-  normalBubblesLifeTime: 5
+  maxBubblesSpeed: 20
+  minBubblesLifeTime: 0.2
+  normalBubblesLifeTime: 4
   smokePS: {fileID: 5647487508900036932}
   normalSmokeEmissionRate: 10
   maxSmokeEmissionRate: 30
@@ -12173,7 +12173,8 @@ MonoBehaviour:
   minSmokeLifeTime: 1
   normalSmokeLifeTime: 2.5
   waterSplashVFX:
-  - {fileID: 8300000, guid: 2aa3338338ec3bc43b160d4df142bc04, type: 3}
+  - {fileID: 8300000, guid: 921f5ebc05a9e5b40865c3f73ee2b0a9, type: 3}
+  - {fileID: 8300000, guid: ea5fcdab83f5c9643a279f5d89e12592, type: 3}
   canvasTransform: {fileID: 8471096647375038565}
   ingredientsText: {fileID: 5547628783896549696}
   progressBar: {fileID: 8798318271411511121}
@@ -13761,7 +13762,7 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0.8679245, g: 0.616954, b: 0.38892844, a: 0}
+        key0: {r: 0.8679245, g: 0.616954, b: 0.38892844, a: 1}
         key1: {r: 0.6627451, g: 0.44889754, b: 0.36981177, a: 1}
         key2: {r: 0.38679248, g: 0.38679248, b: 0.38679248, a: 1}
         key3: {r: 0.38679248, g: 0.38679248, b: 0.38679248, a: 0}

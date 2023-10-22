@@ -35,11 +35,11 @@ public class BS_HandEvents : MonoBehaviour
 
     private void OnHandUpdate(WebXRHandData handData)
     {
-        //if ((handData.trigger > 0) != oldGripState)
-        //{
-        //    oldGripState = handData.trigger > 0;
-        //    OnGripChange?.Invoke(this, oldGripState);
-        //}
+        if ((handData.trigger > 0) != oldGripState)
+        {
+            oldGripState = handData.trigger > 0;
+            OnGripChange?.Invoke(this, oldGripState);
+        }
     }
 
     private void Update()
@@ -91,6 +91,11 @@ public class BS_HandEvents : MonoBehaviour
     {
         InRb.MovePosition(transform.position);
         attachJoint.connectedBody = InRb;
+    }
+
+    public void VibrateHand(float InAmount)
+    {
+    
     }
 
     public Vector3 GetThumbstickValue()

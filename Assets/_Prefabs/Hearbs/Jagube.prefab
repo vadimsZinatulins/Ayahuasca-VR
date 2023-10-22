@@ -909,7 +909,7 @@ MonoBehaviour:
   positionLerpSpeed: 3
   SpeedMultiplier: 20
   rbSimulatedVelocity: 0
-  plantDroppable: {fileID: 0}
+  plantDroppable: {fileID: 2704184336328560001, guid: bb503128c4b6f7e4cb4065d968655c15, type: 3}
 --- !u!1 &5969167410830861734
 GameObject:
   m_ObjectHideFlags: 0

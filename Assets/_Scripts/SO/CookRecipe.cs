@@ -6,9 +6,9 @@ using UnityEngine;
     [CreateAssetMenu(fileName = "New Recipe", menuName = "Ayahusca/Recipes", order = 0)]
     public class CookRecipe : ScriptableObject
     {
-        public List<CookIngredient> ingredients = new List<CookIngredient>();
+        public List<CookIngredient> ingredients;
         // Can be a normal item and some vfx (smoke and other stuff)
-        public List<GameObject> objectsProduced = new List<GameObject>();
+        public List<GameObject> objectsProduced;
     }
 
     [Serializable]

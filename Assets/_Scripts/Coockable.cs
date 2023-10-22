@@ -32,7 +32,7 @@ namespace DefaultNamespace
     {
         Chacrona,
         Jagube,
-        Cidreira,
-        Camomila
+        LemonBalm,
+        Chamomile
     }
 }

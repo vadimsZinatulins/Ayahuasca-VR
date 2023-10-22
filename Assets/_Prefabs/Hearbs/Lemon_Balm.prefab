@@ -69,7 +69,7 @@ MonoBehaviour:
   positionLerpSpeed: 3
   SpeedMultiplier: 20
   rbSimulatedVelocity: 0
-  plantDroppable: {fileID: 0}
+  plantDroppable: {fileID: 5280024635567509062, guid: 8d0335a06ddaaa047965bd2becfdab4e, type: 3}
 --- !u!1 &540259230751433164
 GameObject:
   m_ObjectHideFlags: 0
@@ -161,7 +161,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1207884d32178754493be1ac7f11acbc, type: 2}
+  - {fileID: 2100000, guid: 63832d8b114eb0e4fa2db637810586f1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

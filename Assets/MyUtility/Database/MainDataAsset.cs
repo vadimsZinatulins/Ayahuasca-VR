@@ -52,8 +52,8 @@ namespace MyUtility.Database
                     return true;
                 }
             }
-            
-            OutRecipe = new CookRecipe();
+
+            OutRecipe = null;
             return false;
         }
     }

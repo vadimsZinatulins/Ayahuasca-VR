@@ -196,7 +196,7 @@ public class Boiler : MonoBehaviour
                 cookIngredients.Add(currentIngredient.Value.ingredient);
             }
 
-            CookRecipe r;
+            CookRecipe r = null;
             if (DataAsset.GetRecipe(cookIngredients, out r))
             {
                 recipe = r;
